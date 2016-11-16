@@ -17,15 +17,13 @@
       <table id="6" parent="1" name="summary"/>
       <column id="7" parent="6" name="id">
         <mandatory>1</mandatory>
-        <data-type>int(11)|0</data-type>
+        <data-type>int(10)|0</data-type>
         <sequence-identity>1</sequence-identity>
       </column>
       <column id="8" parent="6" name="date">
-        <mandatory>1</mandatory>
         <data-type>date|0</data-type>
       </column>
       <column id="9" parent="6" name="content">
-        <mandatory>1</mandatory>
         <data-type>text|0</data-type>
       </column>
       <key id="10" parent="6" name="PRIMARY">

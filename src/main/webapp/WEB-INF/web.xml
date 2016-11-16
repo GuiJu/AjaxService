@@ -8,9 +8,18 @@
     <servlet-name>getDataServlet</servlet-name>
     <servlet-class>ajax.getDataServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>addDataSevlet</servlet-name>
+    <servlet-class>ajax.addDataServlet</servlet-class>
+  </servlet>
   
   <servlet-mapping>
     <servlet-name>getDataServlet</servlet-name>
     <url-pattern>/getData</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>addDataSevlet</servlet-name>
+    <url-pattern>/addData</url-pattern>
   </servlet-mapping>
 </web-app>

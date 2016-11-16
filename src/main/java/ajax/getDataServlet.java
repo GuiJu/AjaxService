@@ -27,7 +27,7 @@ public class getDataServlet extends HttpServlet {
         session.getTransaction().commit();
         session.close();
 
-        resp.setContentType("application/json");
+        resp.setContentType("application/json; charset=utf-8");
         PrintWriter out = resp.getWriter();
         String jsonString = JSON.toJSONString(summaryEntityList);
         out.append(jsonString);

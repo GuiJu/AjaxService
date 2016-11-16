@@ -8,50 +8,70 @@
 
 /*整个App*/
 var App = React.createClass({
-    getInitialState: function () {
-      return {
-        INFOS: [{date: '2016-11-8', content: 'content1'},{date: '2016-11-9', content: 'content2'}]
-      };
-    },
+  getInitialState: function () {
+    return {
+      INFOS: [{date: '2016-11-8', content: 'content1'},
+        {date: '2016-11-9', content: 'content2'},
+        {date: '2016-11-10', content: 'content3'}]
+    };
+  },
 
-    componentDidMount: function () {
-      var xmlhttp = new XMLHttpRequest();
-      var DataGet;
-      xmlhttp.onreadystatechange = function () {
-        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-          DataGet = xmlhttp.responseText;
-          DataGet = eval(DataGet);
-          for (var i = 0; i < DataGet.length; i++){
-            DataGet[i].date = (new Date(DataGet[i].date)).toDateString();
-          }
+  handleContentSubmit: function (content) {
+    var xmlhttp = new XMLHttpRequest();
+    var DataGet;
+    xmlhttp.onreadystatechange = function () {
+      if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+        DataGet = xmlhttp.responseText;
+        DataGet = eval(DataGet);
+      }
+    }
+    content = encodeURI(encodeURI(content));
+    xmlhttp.open("GET", "http://localhost:8080/addData?content=" + content, true);
+    //xmlhttp.setRequestHeader("Content-Type", "text/plain; charset=UTF-8");
+    xmlhttp.send();
+    this.setState({
+      INFOS: DataGet
+    });
+  },
+
+  componentDidMount: function () {
+    var xmlhttp = new XMLHttpRequest();
+    var DataGet;
+    xmlhttp.onreadystatechange = function () {
+      if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+        DataGet = xmlhttp.responseText;
+        DataGet = eval(DataGet);
+        for (var i = 0; i < DataGet.length; i++) {
+          DataGet[i].date = (new Date(DataGet[i].date)).toDateString();
         }
       }
-      xmlhttp.open("GET", "http://localhost:8080/getData", false);
-      xmlhttp.send();
-      if (this.isMounted()) {
-        this.setState({
-          INFOS: DataGet
-        });
-      }
-    },
+    }
+    xmlhttp.open("GET", "http://localhost:8080/getData", false);
+    xmlhttp.send();
+    if (this.isMounted()) {
+      this.setState({
+        INFOS: DataGet
+      });
+    }
+  },
 
-    render: function () {
-      return (
-        <div className="container-fluid">
-          <div className="row">
-            <div className="col-md-10 col-md-offset-1">
-              <NavBar/>
-              <Modal/>
-              <PanelList infos={this.state.INFOS}/>
-            </div>
+  render: function () {
+    return (
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col-md-10 col-md-offset-1">
+            <NavBar/>
+            <Modal onContentSubmit={this.handleContentSubmit}/>
+            <PanelList infos={this.state.INFOS}/>
           </div>
         </div>
-      );
-    }
-  })
-  ;
+      </div>
+    );
+  }
+});
 
-/*面板主body组件*/
+
+/*pand-body组件*/
 var PanelBody = React.createClass({
   render: function () {
     return (
@@ -78,7 +98,6 @@ var Panel = React.createClass({
 
 /*面板列表组*/
 var PanelList = React.createClass({
-
   render: function () {
     var panels = [];
     this.props.infos.forEach(function (info) {
@@ -144,6 +163,19 @@ var NavBarCollapse = React.createClass({
 
 /*模态框*/
 var Modal = React.createClass({
+  getInitialState: function () {
+    return {content: ""};
+  },
+
+  handleTextChange: function (e) {
+    this.setState({content: e.target.value});
+  },
+
+  //点击submit后的处理函数,其中content来自模态框的state
+  handleClick: function (e) {
+    this.props.onContentSubmit(this.state.content);
+  },
+
   render: function () {
     return (
       <div className="modal fade" id="mainModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
@@ -157,11 +189,19 @@ var Modal = React.createClass({
               <h4 className="modal-title">Today's summary</h4>
             </div>
 
-            <ModalBody/>
+            <div className="modal-body">
+              <form role="form">
+                <div className="form-group">
+                  <label for="inputContent">Today's summary：</label>
+                  <input id="inputContent" type="text" className="form-control" placeholder="Enter today's summary" onChange={this.handleTextChange}/>
+                </div>
+              </form>
+            </div>
 
             <div className="modal-footer">
               <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
-              <button type="button" className="btn btn-primary">Submit</button>
+              <button type="button" className="btn btn-primary" onClick={this.handleClick} data-dismiss="modal">Submit
+              </button>
             </div>
 
           </div>
@@ -171,16 +211,6 @@ var Modal = React.createClass({
   }
 });
 
-/*模态框body*/
-var ModalBody = React.createClass({
-  render: function () {
-    return (
-      <div className="modal-body">
-        <p>One fine body&hellip;</p>
-      </div>
-    );
-  }
-});
 
 ReactDOM.render(<App/>, document.getElementById("app"));
 
