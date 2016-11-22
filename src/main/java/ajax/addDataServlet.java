@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URLDecoder;
 import java.sql.Date;
+import java.util.List;
 
 /**
  * Created by jutal on 16-11-16.
@@ -32,16 +33,17 @@ public class addDataServlet extends HttpServlet{
         session.save(summaryEntity);
         session.getTransaction().commit();
 
+        Query q = session.createQuery("from SummaryEntity ");
+        List<SummaryEntity> summaryEntityList = q.list();
+        String jsonString = JSON.toJSONString(summaryEntityList);
+        session.close();
+
         resp.setContentType("application/json; charset=utf-8");
         PrintWriter out = resp.getWriter();
-        Query query = session.createQuery("from SummaryEntity ");
-        String jsonString = JSON.toJSONString(query.list());
         out.append(jsonString);
-        out.flush();
+        out.close();
 
-        session.close();
     }
-
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

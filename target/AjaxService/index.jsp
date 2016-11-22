@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>React</title>
+    <title>ReactSummary</title>
     <script src="http://static.runoob.com/assets/react/react-0.14.7/build/react.min.js"></script>
     <script src="http://static.runoob.com/assets/react/react-0.14.7/build/react-dom.min.js"></script>
     <script src="http://static.runoob.com/assets/react/browser.min.js"></script>

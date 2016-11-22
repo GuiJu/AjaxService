@@ -23,10 +23,32 @@ var App = React.createClass({
       if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
         DataGet = xmlhttp.responseText;
         DataGet = eval(DataGet);
+        for (var i = 0; i < DataGet.length; i++) {
+          DataGet[i].date = (new Date(DataGet[i].date)).toDateString();
+        }
       }
     }
     content = encodeURI(encodeURI(content));
-    xmlhttp.open("GET", "http://localhost:8080/addData?content=" + content, true);
+    xmlhttp.open("GET", "http://localhost:8080/addData?content=" + content, false);
+    xmlhttp.send();
+    this.setState({
+      INFOS: DataGet
+    });
+  },
+
+  handleContentDelete: function (id) {
+    var xmlhttp = new XMLHttpRequest();
+    var DataGet;
+    xmlhttp.onreadystatechange = function () {
+      if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+        DataGet = xmlhttp.responseText;
+        DataGet = eval(DataGet);
+        for (var i = 0; i < DataGet.length; i++) {
+          DataGet[i].date = (new Date(DataGet[i].date)).toDateString();
+        }
+      }
+    }
+    xmlhttp.open("GET", "http://localhost:8080/deleteData?id=" + id, false);
     xmlhttp.send();
     this.setState({
       INFOS: DataGet
@@ -61,7 +83,7 @@ var App = React.createClass({
           <div className="col-md-10 col-md-offset-1">
             <NavBar/>
             <Modal onContentSubmit={this.handleContentSubmit}/>
-            <PanelList infos={this.state.INFOS}/>
+            <PanelList infos={this.state.INFOS} onContentDelete={this.handleContentDelete}/>
           </div>
         </div>
       </div>
@@ -69,26 +91,29 @@ var App = React.createClass({
   }
 });
 
-
-/*pand-body组件*/
-var PanelBody = React.createClass({
-  render: function () {
-    return (
-      <div className="panel-body">
-        {this.props.content}
-      </div>
-    );
-  }
-});
-
 /*单个面板组件*/
 var Panel = React.createClass({
+  handleDeleteClick: function () {
+    this.props.onContentDelete(this.props.id);
+  },
+
   render: function () {
     return (
-      <div className="col-md-6">
-        <div className="panel panel-success">
-          <div className="panel-heading">{this.props.heading}</div>
-          <PanelBody content={this.props.content}/>
+      <div className="row">
+        <div className="col-md-12">
+          <div className="panel panel-success">
+            <div className="panel-heading">{this.props.heading}</div>
+            <div className="panel-body">
+              <div className="row">
+                <div className="col-md-10"><p>{this.props.content}</p></div>
+                <div className="col-md-2">
+                  <center>
+                    <button type="button" className="btn btn-default btn-sm" onClick={this.handleDeleteClick}>Delete</button>
+                  </center>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     );
@@ -99,11 +124,12 @@ var Panel = React.createClass({
 var PanelList = React.createClass({
   render: function () {
     var panels = [];
+    var onContentDelete = this.props.onContentDelete;
     this.props.infos.forEach(function (info) {
-      panels.push(<Panel heading={info.date} content={info.content}/>)
+      panels.push(<Panel heading={info.date} content={info.content} id={info.id} onContentDelete={onContentDelete}/>)
     })
     return (
-      <div id="panelList" className="row">
+      <div id="panelList">
         {panels}
       </div>
     );
@@ -147,14 +173,12 @@ var NavBarCollapse = React.createClass({
   render: function () {
     return (
       <div className="collapse navbar-collapse" id="navbar-collapse">
-        <form className="navbar-form navbar-left" role="search">
+        <form className="navbar-form navbar-right" role="search">
           <div className="form-group">
             <input type="text" className="form-control" placeholder="Search"/>
           </div>
-          <button type="submit" className="btn btn-default">Submit</button>
+          <a className="btn btn-default" data-toggle="modal" data-target="#mainModal">Add</a>
         </form>
-        <button className="btn btn-default navbar-btn navbar-right" data-toggle="modal" data-target="#mainModal">Add
-        </button>
       </div>
     );
   }

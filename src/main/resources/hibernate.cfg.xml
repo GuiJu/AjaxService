@@ -8,6 +8,9 @@
     <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
     <property name="connection.username">root</property>
     <property name="connection.password">123</property>
+    <property name="hibernate.connection.url">
+      <![CDATA[jdbc:mysql://localhost:3306/Summary?useUnicode=true&characterEncoding=utf8]]>
+    </property>
       <mapping class="domain.SummaryEntity"/>
       <mapping resource="domain/SummaryEntity.hbm.xml"/>
       <!-- DB schema will be updated if needed -->
