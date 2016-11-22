@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="icon" type="image/png" href=images/icon.png>
     <meta charset="UTF-8">
     <title>ReactSummary</title>
     <script src="http://static.runoob.com/assets/react/react-0.14.7/build/react.min.js"></script>

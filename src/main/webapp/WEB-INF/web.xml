@@ -16,7 +16,12 @@
     <servlet-name>deleteDataServlet</servlet-name>
     <servlet-class>ajax.deleteDataServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>editDataServlet</servlet-name>
+    <servlet-class>ajax.editDataServlet</servlet-class>
+  </servlet>
   
+  <!-- servlet-mapping -->
   <servlet-mapping>
     <servlet-name>getDataServlet</servlet-name>
     <url-pattern>/getData</url-pattern>
@@ -30,5 +35,10 @@
   <servlet-mapping>
     <servlet-name>deleteDataServlet</servlet-name>
     <url-pattern>/deleteData</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>editDataServlet</servlet-name>
+    <url-pattern>/editData</url-pattern>
   </servlet-mapping>
 </web-app>

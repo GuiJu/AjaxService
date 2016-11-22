@@ -55,6 +55,26 @@ var App = React.createClass({
     });
   },
 
+  handleContentEdit: function (id, content) {
+    var xmlhttp = new XMLHttpRequest();
+    var DataGet;
+    xmlhttp.onreadystatechange = function () {
+      if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+        DataGet = xmlhttp.responseText;
+        DataGet = eval(DataGet);
+        for (var i = 0; i < DataGet.length; i++) {
+          DataGet[i].date = (new Date(DataGet[i].date)).toDateString();
+        }
+      }
+    }
+    content = encodeURI(encodeURI(content));
+    xmlhttp.open("GET", "http://localhost:8080/editData?id=" + id + "&content=" + content, false);
+    xmlhttp.send();
+    this.setState({
+      INFOS: DataGet
+    });
+  },
+
   componentDidMount: function () {
     var xmlhttp = new XMLHttpRequest();
     var DataGet;
@@ -82,8 +102,9 @@ var App = React.createClass({
         <div className="row">
           <div className="col-md-10 col-md-offset-1">
             <NavBar/>
-            <Modal onContentSubmit={this.handleContentSubmit}/>
-            <PanelList infos={this.state.INFOS} onContentDelete={this.handleContentDelete}/>
+            <AddModal onContentSubmit={this.handleContentSubmit}/>
+            <PanelList infos={this.state.INFOS} onContentDelete={this.handleContentDelete}
+                       onContentEdit={this.handleContentEdit}/>
           </div>
         </div>
       </div>
@@ -91,13 +112,17 @@ var App = React.createClass({
   }
 });
 
-/*单个面板组件*/
+/*单个面板组件——包含其附属模态框*/
 var Panel = React.createClass({
   handleDeleteClick: function () {
-    this.props.onContentDelete(this.props.id);
+    this.props.onContentDelete(this.props.contentId);
   },
 
   render: function () {
+    var modalId = "modal" + this.props.contentId;
+    var dataTarget = "#" + modalId;
+    var onContentEdit = this.props.onContentEdit;
+
     return (
       <div className="row">
         <div className="col-md-12">
@@ -105,15 +130,20 @@ var Panel = React.createClass({
             <div className="panel-heading">{this.props.heading}</div>
             <div className="panel-body">
               <div className="row">
-                <div className="col-md-10"><p>{this.props.content}</p></div>
+                <div className="col-md-10"><h4>{this.props.content}</h4></div>
                 <div className="col-md-2">
                   <center>
-                    <button type="button" className="btn btn-default btn-sm" onClick={this.handleDeleteClick}>Delete</button>
+                    <button type="button" className="btn btn-default btn-sm" data-toggle="modal"
+                            data-target={dataTarget}>Edit
+                    </button>
+                    <button type="button" className="btn btn-default btn-sm" onClick={this.handleDeleteClick}>Delete
+                    </button>
                   </center>
                 </div>
               </div>
             </div>
           </div>
+          <EditModal contentId={this.props.contentId} content={this.props.content} onContentEdit={onContentEdit}/>
         </div>
       </div>
     );
@@ -125,9 +155,12 @@ var PanelList = React.createClass({
   render: function () {
     var panels = [];
     var onContentDelete = this.props.onContentDelete;
+    var onContentEdit = this.props.onContentEdit;
     this.props.infos.forEach(function (info) {
-      panels.push(<Panel heading={info.date} content={info.content} id={info.id} onContentDelete={onContentDelete}/>)
-    })
+      panels.push(
+        <Panel heading={info.date} content={info.content} contentId={info.id}
+               onContentDelete={onContentDelete} onContentEdit={onContentEdit}/>)
+      })
     return (
       <div id="panelList">
         {panels}
@@ -177,15 +210,15 @@ var NavBarCollapse = React.createClass({
           <div className="form-group">
             <input type="text" className="form-control" placeholder="Search"/>
           </div>
-          <a className="btn btn-default" data-toggle="modal" data-target="#mainModal">Add</a>
+          <a className="btn btn-default" data-toggle="modal" data-target="#addModal">Add</a>
         </form>
       </div>
     );
   }
 });
 
-/*模态框*/
-var Modal = React.createClass({
+/*Add模态框*/
+var AddModal = React.createClass({
   getInitialState: function () {
     return {content: ""};
   },
@@ -201,7 +234,7 @@ var Modal = React.createClass({
 
   render: function () {
     return (
-      <div className="modal fade" id="mainModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+      <div className="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
            aria-hidden="true">
         <div className="modal-dialog">
           <div className="modal-content">
@@ -216,7 +249,59 @@ var Modal = React.createClass({
               <form role="form">
                 <div className="form-group">
                   <label for="inputContent">Today's summary：</label>
-                  <input id="inputContent" type="text" className="form-control" placeholder="Enter today's summary" onChange={this.handleTextChange}/>
+                  <textarea type="text" className="form-control" placeholder="Enter today's summary"
+                            onChange={this.handleTextChange}/>
+                </div>
+              </form>
+            </div>
+
+            <div className="modal-footer">
+              <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="button" className="btn btn-primary" onClick={this.handleClick} data-dismiss="modal">Submit</button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    );
+  }
+});
+
+/*Edit模态框*/
+var EditModal = React.createClass({
+  getInitialState: function () {
+    return {content: ""};
+  },
+
+  handleTextChange: function (e) {
+    this.setState({content: e.target.value});
+  },
+
+  //点击submit后的处理函数,其中content来自模态框的state
+  handleClick: function (e) {
+    this.props.onContentEdit(this.props.contentId, this.state.content);
+  },
+
+  render: function () {
+    var modalId = "modal" + this.props.contentId;
+    var textContent = this.props.content;
+    return (
+      <div className="modal fade" id={modalId} tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+           aria-hidden="true">
+        <div className="modal-dialog">
+          <div className="modal-content">
+
+            <div className="modal-header">
+              <button type="button" className="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                className="sr-only">Close</span></button>
+              <h4 className="modal-title">Edit today's summary - id:{this.props.contentId}</h4>
+            </div>
+
+            <div className="modal-body">
+              <form role="form">
+                <div className="form-group">
+                  <label for="inputContent">Today's summary：</label>
+                  <textarea type="text" className="form-control" placeholder="Enter today's summary" onChange={this.handleTextChange}/>
                 </div>
               </form>
             </div>
@@ -233,7 +318,6 @@ var Modal = React.createClass({
     );
   }
 });
-
 
 ReactDOM.render(<App/>, document.getElementById("app"));
 
