@@ -10,9 +10,7 @@
 var App = React.createClass({
   getInitialState: function () {
     return {
-      INFOS: [{date: '2016-11-8', content: 'content1'},
-        {date: '2016-11-9', content: 'content2'},
-        {date: '2016-11-10', content: 'content3'}]
+      INFOS: []
     };
   },
 
@@ -75,6 +73,26 @@ var App = React.createClass({
     });
   },
 
+  handleContentSelect: function (content) {
+    var xmlhttp = new XMLHttpRequest();
+    var DataGet;
+    xmlhttp.onreadystatechange = function () {
+      if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+        DataGet = xmlhttp.responseText;
+        DataGet = eval(DataGet);
+        for (var i = 0; i < DataGet.length; i++) {
+          DataGet[i].date = (new Date(DataGet[i].date)).toDateString();
+        }
+      }
+    }
+    content = encodeURI(encodeURI(content));
+    xmlhttp.open("GET", "http://localhost:8080/selectData?content=" + content, false);
+    xmlhttp.send();
+    this.setState({
+      INFOS: DataGet
+    });
+  },
+
   componentDidMount: function () {
     var xmlhttp = new XMLHttpRequest();
     var DataGet;
@@ -101,7 +119,7 @@ var App = React.createClass({
       <div className="container-fluid">
         <div className="row">
           <div className="col-md-10 col-md-offset-1">
-            <NavBar/>
+            <NavBar onContentSelect={this.handleContentSelect}/>
             <AddModal onContentSubmit={this.handleContentSubmit}/>
             <PanelList infos={this.state.INFOS} onContentDelete={this.handleContentDelete}
                        onContentEdit={this.handleContentEdit}/>
@@ -172,11 +190,12 @@ var PanelList = React.createClass({
 /*导航条主体*/
 var NavBar = React.createClass({
   render: function () {
+    var onContentSelect = this.props.onContentSelect;
     return (
       <nav className="navbar navbar-default" role="navigation">
         <div className="container-fluid">
           <NavBarHeader/>
-          <NavBarCollapse/>
+          <NavBarCollapse onContentSelect={onContentSelect}/>
         </div>
       </nav>
     );
@@ -203,12 +222,17 @@ var NavBarHeader = React.createClass({
 
 /*导航条内容*/
 var NavBarCollapse = React.createClass({
+
+  handleTextChange: function (e) {
+    this.props.onContentSelect(e.target.value);
+  },
+
   render: function () {
     return (
       <div className="collapse navbar-collapse" id="navbar-collapse">
         <form className="navbar-form navbar-right" role="search">
           <div className="form-group">
-            <input type="text" className="form-control" placeholder="Search"/>
+            <input type="text" className="form-control" placeholder="Search" onChange={this.handleTextChange}/>
           </div>
           <a className="btn btn-default" data-toggle="modal" data-target="#addModal">Add</a>
         </form>
@@ -270,7 +294,8 @@ var AddModal = React.createClass({
 /*Edit模态框*/
 var EditModal = React.createClass({
   getInitialState: function () {
-    return {content: ""};
+    var defaultContent = this.props.content;
+    return {content: defaultContent};
   },
 
   handleTextChange: function (e) {
@@ -284,7 +309,6 @@ var EditModal = React.createClass({
 
   render: function () {
     var modalId = "modal" + this.props.contentId;
-    var textContent = this.props.content;
     return (
       <div className="modal fade" id={modalId} tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
            aria-hidden="true">
@@ -301,7 +325,7 @@ var EditModal = React.createClass({
               <form role="form">
                 <div className="form-group">
                   <label for="inputContent">Today's summary：</label>
-                  <textarea type="text" className="form-control" placeholder="Enter today's summary" onChange={this.handleTextChange}/>
+                  <textarea type="text" className="form-control" placeholder="Enter today's summary" value={this.state.content} onChange={this.handleTextChange}/>
                 </div>
               </form>
             </div>

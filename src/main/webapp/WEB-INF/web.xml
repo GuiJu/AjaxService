@@ -20,7 +20,10 @@
     <servlet-name>editDataServlet</servlet-name>
     <servlet-class>ajax.editDataServlet</servlet-class>
   </servlet>
-  
+  <servlet>
+    <servlet-name>selectDataServlet</servlet-name>
+    <servlet-class>ajax.selectDataServlet</servlet-class>
+  </servlet>
   <!-- servlet-mapping -->
   <servlet-mapping>
     <servlet-name>getDataServlet</servlet-name>
@@ -41,4 +44,10 @@
     <servlet-name>editDataServlet</servlet-name>
     <url-pattern>/editData</url-pattern>
   </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>selectDataServlet</servlet-name>
+    <url-pattern>/selectData</url-pattern>
+  </servlet-mapping>
 </web-app>
+
