@@ -1,48 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f78f2e64-2552-4705-bdfb-fe5e467e2410" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/AjaxService.war" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/AjaxService/META-INF/MANIFEST.MF" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/AjaxService/WEB-INF/classes/ajax/addDataServlet.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/AjaxService/WEB-INF/classes/ajax/deleteDataServlet.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/AjaxService/WEB-INF/classes/ajax/editDataServlet.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/AjaxService/WEB-INF/classes/ajax/getDataServlet.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/AjaxService/WEB-INF/classes/dao/HibernateUtil.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/AjaxService/WEB-INF/classes/domain/SummaryEntity.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/AjaxService/WEB-INF/classes/domain/SummaryEntity.hbm.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/AjaxService/WEB-INF/classes/hibernate.cfg.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/AjaxService/WEB-INF/lib/antlr-2.7.7.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/AjaxService/WEB-INF/lib/dom4j-1.6.1.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/AjaxService/WEB-INF/lib/fastjson-1.2.7.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/AjaxService/WEB-INF/lib/hamcrest-core-1.3.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/AjaxService/WEB-INF/lib/hibernate-commons-annotations-4.0.2.Final.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/AjaxService/WEB-INF/lib/hibernate-core-4.2.2.Final.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/AjaxService/WEB-INF/lib/hibernate-entitymanager-4.2.2.Final.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/AjaxService/WEB-INF/lib/hibernate-jpa-2.0-api-1.0.1.Final.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/AjaxService/WEB-INF/lib/javassist-3.15.0-GA.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/AjaxService/WEB-INF/lib/javax.servlet-api-3.1.0.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/AjaxService/WEB-INF/lib/jboss-logging-3.1.0.GA.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/AjaxService/WEB-INF/lib/jboss-transaction-api_1.1_spec-1.0.1.Final.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/AjaxService/WEB-INF/lib/junit-4.12.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/AjaxService/WEB-INF/lib/mysql-connector-java-5.1.6.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/AjaxService/WEB-INF/web.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/AjaxService/images/icon.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/AjaxService/index.jsp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/AjaxService/js/App.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/ajax/addDataServlet.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/ajax/deleteDataServlet.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/ajax/editDataServlet.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/ajax/getDataServlet.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/dao/HibernateUtil.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/domain/SummaryEntity.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/domain/SummaryEntity.hbm.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/hibernate.cfg.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/test-classes/TestHibernate.class" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/js/App.js" afterPath="$PROJECT_DIR$/src/main/webapp/js/App.js" />
-    </list>
+    <list default="true" id="f78f2e64-2552-4705-bdfb-fe5e467e2410" name="Default" comment="" />
     <ignored path="AjaxService.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/out/" />
@@ -1150,7 +1109,7 @@
       <option name="presentableId" value="Default" />
       <updated>1478858109538</updated>
       <workItem from="1478858112414" duration="9375000" />
-      <workItem from="1478938044811" duration="46908000" />
+      <workItem from="1478938044811" duration="47061000" />
     </task>
     <servers />
   </component>
@@ -1187,7 +1146,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="56283000" />
+    <option name="totallyTimeSpent" value="56436000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="-4" width="1615" height="1054" extended-state="6" />
