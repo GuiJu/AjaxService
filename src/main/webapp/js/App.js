@@ -27,7 +27,7 @@ var App = React.createClass({
       }
     }
     content = encodeURI(encodeURI(content));
-    xmlhttp.open("GET", "http://localhost:8080/addData?content=" + content, false);
+    xmlhttp.open("GET", "http://10.108.112.67:8080/addData?content=" + content, false);
     xmlhttp.send();
     this.setState({
       INFOS: DataGet
@@ -46,7 +46,7 @@ var App = React.createClass({
         }
       }
     }
-    xmlhttp.open("GET", "http://localhost:8080/deleteData?id=" + id, false);
+    xmlhttp.open("GET", "http://10.108.112.67:8080/deleteData?id=" + id, false);
     xmlhttp.send();
     this.setState({
       INFOS: DataGet
@@ -66,7 +66,7 @@ var App = React.createClass({
       }
     }
     content = encodeURI(encodeURI(content));
-    xmlhttp.open("GET", "http://localhost:8080/editData?id=" + id + "&content=" + content, false);
+    xmlhttp.open("GET", "http://10.108.112.67:8080/editData?id=" + id + "&content=" + content, false);
     xmlhttp.send();
     this.setState({
       INFOS: DataGet
@@ -86,7 +86,7 @@ var App = React.createClass({
       }
     }
     content = encodeURI(encodeURI(content));
-    xmlhttp.open("GET", "http://localhost:8080/selectData?content=" + content, false);
+    xmlhttp.open("GET", "http://10.108.112.67:8080/selectData?content=" + content, false);
     xmlhttp.send();
     this.setState({
       INFOS: DataGet
@@ -105,7 +105,7 @@ var App = React.createClass({
         }
       }
     }
-    xmlhttp.open("GET", "http://localhost:8080/getData", false);
+    xmlhttp.open("GET", "http://10.108.112.67:8080/getData", false);
     xmlhttp.send();
     if (this.isMounted()) {
       this.setState({
@@ -178,7 +178,7 @@ var PanelList = React.createClass({
       panels.push(
         <Panel heading={info.date} content={info.content} contentId={info.id}
                onContentDelete={onContentDelete} onContentEdit={onContentEdit}/>)
-      })
+    })
     return (
       <div id="panelList">
         {panels}
@@ -253,6 +253,7 @@ var AddModal = React.createClass({
 
   //点击submit后的处理函数,其中content来自模态框的state
   handleClick: function (e) {
+    e.preventDefault();
     this.props.onContentSubmit(this.state.content);
   },
 
@@ -281,7 +282,7 @@ var AddModal = React.createClass({
 
             <div className="modal-footer">
               <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
-              <button type="button" className="btn btn-primary" onClick={this.handleClick} data-dismiss="modal">Submit</button>
+              <button type="button" className="btn btn-primary" value={this.state.content} onClick={this.handleClick} data-dismiss="modal">Submit</button>
             </div>
 
           </div>
@@ -304,6 +305,7 @@ var EditModal = React.createClass({
 
   //点击submit后的处理函数,其中content来自模态框的state
   handleClick: function (e) {
+    e.preventDefault();
     this.props.onContentEdit(this.props.contentId, this.state.content);
   },
 

@@ -16,7 +16,7 @@
 </head>
 <body>
 <div id="app">
-    <script type="text/babel" src="/js/App.js"/>
+    <script type="text/babel" src="/js/AppES6.js"/>
 </div>
 </body>
 </html>
