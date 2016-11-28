@@ -13,6 +13,7 @@ class App extends React.Component {
     this.state = {
       INFOS: []
     };
+    //不要忘记bind()方法对函数的this进行绑定
     this.handleContentSubmit = this.handleContentSubmit.bind(this);
     this.handleContentDelete = this.handleContentDelete.bind(this);
     this.handleContentEdit = this.handleContentEdit.bind(this);
