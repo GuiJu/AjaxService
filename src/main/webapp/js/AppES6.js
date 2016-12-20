@@ -33,7 +33,7 @@ class App extends React.Component {
       }
     }
     content = encodeURI(encodeURI(content));
-    xmlhttp.open("GET", "http://10.108.112.67:8080/addData?content=" + content, false);
+    xmlhttp.open("GET", "http://10.108.118.100:8080/addData?content=" + content, false);
     xmlhttp.send();
     this.setState({
       INFOS: DataGet
@@ -52,7 +52,7 @@ class App extends React.Component {
         }
       }
     }
-    xmlhttp.open("GET", "http://10.108.112.67:8080/deleteData?id=" + id, false);
+    xmlhttp.open("GET", "http://10.108.118.100:8080/deleteData?id=" + id, false);
     xmlhttp.send();
     this.setState({
       INFOS: DataGet
@@ -72,7 +72,7 @@ class App extends React.Component {
       }
     }
     content = encodeURI(encodeURI(content));
-    xmlhttp.open("GET", "http://10.108.112.67:8080/editData?id=" + id + "&content=" + content, false);
+    xmlhttp.open("GET", "http://10.108.118.100:8080/editData?id=" + id + "&content=" + content, false);
     xmlhttp.send();
     this.setState({
       INFOS: DataGet
@@ -92,7 +92,7 @@ class App extends React.Component {
       }
     }
     content = encodeURI(encodeURI(content));
-    xmlhttp.open("GET", "http://10.108.112.67:8080/selectData?content=" + content, false);
+    xmlhttp.open("GET", "http://10.108.118.100:8080/selectData?content=" + content, false);
     xmlhttp.send();
     this.setState({
       INFOS: DataGet
@@ -112,7 +112,7 @@ class App extends React.Component {
         }
       }
     }
-    xmlhttp.open("GET", "http://10.108.112.67:8080/getData", false);
+    xmlhttp.open("GET", "http://10.108.118.100:8080/getData", false);
     xmlhttp.send();
     this.setState({
       INFOS: DataGet
